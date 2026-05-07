@@ -361,11 +361,11 @@
     </div>
     <div class="gallery-grid fade-in">
       <div class="gallery-item large">
-        <img src="burger.png" alt="DAISYバーガー">
+        <img src="burger.jpg" alt="DAISYバーガー">
         <div class="caption">DAISYバーガー ポテト付 ¥800</div>
       </div>
       <div class="gallery-item">
-        <img src="omurice.png" alt="オムライス">
+        <img src="omurice.jpg" alt="オムライス">
         <div class="caption">オムライス ¥800〜</div>
       </div>
       <div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
@@ -373,11 +373,11 @@
         <div class="caption">DaisyCafe でーじ</div>
       </div>
       <div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
-        <img src="tshirt.png" alt="オリジナルTシャツ" style="object-fit:contain;padding:1rem;">
+        <img src="tshirt.jpg" alt="オリジナルTシャツ" style="object-fit:contain;padding:1rem;">
         <div class="caption">オリジナルTシャツ</div>
       </div>
       <div class="gallery-item" style="background:var(--soft-green,#c8d9b8);display:flex;align-items:center;justify-content:center;">
-        <img src="bag.png" alt="オリジナルエコバッグ" style="object-fit:contain;padding:1rem;">
+        <img src="bag.jpg" alt="オリジナルエコバッグ" style="object-fit:contain;padding:1rem;">
         <div class="caption">オリジナルエコバッグ</div>
       </div>
     </div>
@@ -387,14 +387,14 @@
       <h2 style="font-size:1.4rem;margin-bottom:0.8rem;">オリジナルグッズ</h2>
       <div class="goods-grid">
         <div class="goods-card">
-          <img src="tshirt.png" alt="Tシャツ">
+          <img src="tshirt.jpg" alt="Tシャツ">
           <div class="goods-card-body">
             <h3>オリジナルTシャツ</h3>
             <p>DaisyCafe since2025のロゴ入り。店頭でご確認ください。</p>
           </div>
         </div>
         <div class="goods-card">
-          <img src="bag.png" alt="エコバッグ">
+          <img src="bag.jpg" alt="エコバッグ">
           <div class="goods-card-body">
             <h3>オリジナルエコバッグ</h3>
             <p>沖永良部島のヤシの木デザイン。使いやすいサイズ感。</p>
@@ -440,7 +440,16 @@
 
 <script>
 // ========== お知らせ ==========
+// localStorageからお知らせを読み込み
 let news = [];
+try {
+  const saved = localStorage.getItem('daisycafe_news');
+  if (saved) news = JSON.parse(saved);
+} catch(e) { news = []; }
+
+function saveNews() {
+  try { localStorage.setItem('daisycafe_news', JSON.stringify(news)); } catch(e) {}
+}
 
 const typeConfig = {
   closed: { label:"臨時休業", badgeClass:"badge-closed", cardClass:"closed" },
@@ -487,6 +496,7 @@ function addNews() {
   const detail = document.getElementById('f-detail').value.trim();
   if (!date || !title) { alert('日付とタイトルを入力してください'); return; }
   news.unshift({ id: Date.now(), date, type, title, detail });
+  saveNews();
   document.getElementById('f-date').value = '';
   document.getElementById('f-title').value = '';
   document.getElementById('f-detail').value = '';
@@ -496,6 +506,7 @@ function addNews() {
 function deleteNews(id) {
   if (!confirm('このお知らせを削除しますか？')) return;
   news = news.filter(n => n.id !== id);
+  saveNews();
   renderNews();
 }
 
