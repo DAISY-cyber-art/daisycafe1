@@ -7,578 +7,553 @@
 <meta name="description" content="沖永良部島にある手作りクレープ・バーガー・島バナナシェイクのカフェ「DaisyCafe（でーじ）」。営業時間や最新情報はこちらから。">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@300;400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --cream: #faf6ef; --warm-beige: #f0e8d8; --brown: #7c5c3e;
-    --dark-brown: #3e2c1c; --sage: #8a9e7e; --accent: #c4864a;
-    --text: #3e2c1c; --text-light: #8a7060;
-  }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Lato', sans-serif; background-color: var(--cream); color: var(--text); line-height: 1.7; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--cream: #faf6ef; --warm-beige: #f0e8d8; --brown: #7c5c3e;
+--dark-brown: #3e2c1c; --sage: #8a9e7e; --accent: #c4864a;
+--text: #3e2c1c; --text-light: #8a7060;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; background-color: var(--cream); color: var(--text); line-height: 1.7; }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 3rem;
-    background: rgba(250,246,239,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(124,92,62,0.1);
-  }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark-brown); }
-  .nav-logo span { font-size: 0.75rem; display: block; font-family: 'Lato', sans-serif; color: var(--text-light); letter-spacing: 0.12em; font-weight: 300; margin-top: -2px; }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
-  .nav-links a:hover { color: var(--accent); }
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; justify-content: space-between; align-items: center;
+padding: 1.2rem 3rem;
+background: rgba(250,246,239,0.92); backdrop-filter: blur(8px);
+border-bottom: 1px solid rgba(124,92,62,0.1);
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark-brown); }
+.nav-logo span { font-size: 0.75rem; display: block; font-family: 'Lato', sans-serif; color: var(--text-light); letter-spacing: 0.12em; font-weight: 300; margin-top: -2px; }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover { color: var(--accent); }
 
-  /* ハンバーガーメニュー（スマホ用） */
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; }
-  .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--dark-brown); margin: 5px 0; transition: all 0.3s; }
+/* ハンバーガーメニュー（スマホ用） */
+.menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; }
+.menu-toggle span { display: block; width: 22px; height: 2px; background: var(--dark-brown); margin: 5px 0; transition: all 0.3s; }
 
-  @media (max-width: 680px) {
-    nav { padding: 1rem 1.2rem; }
-    .menu-toggle { display: block; }
-    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(250,246,239,0.98); padding: 1rem 1.5rem 1.5rem; gap: 1rem; border-bottom: 1px solid rgba(124,92,62,0.1); }
-    .nav-links.open { display: flex; }
-  }
+@media (max-width: 680px) {
+nav { padding: 1rem 1.2rem; }
+.menu-toggle { display: block; }
+.nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(250,246,239,0.98); padding: 1rem 1.5rem 1.5rem; gap: 1rem; border-bottom: 1px solid rgba(124,92,62,0.1); }
+.nav-links.open { display: flex; }
+}
 
-  #notice-bar {
-    position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
-    background: #fff3cd; border-bottom: 2px solid #f0b429;
-    padding: 0.7rem 1.5rem;
-    display: flex; align-items: center; justify-content: center; gap: 0.8rem;
-    font-size: 0.88rem; color: #7a4f00;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-  }
-  #notice-bar.hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-  #notice-bar .notice-text { flex: 1; max-width: 700px; }
-  #notice-bar .notice-close { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #7a4f00; opacity: 0.6; padding: 0.2rem 0.4rem; }
-  #notice-bar .notice-close:hover { opacity: 1; }
+#notice-bar {
+position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+background: #fff3cd; border-bottom: 2px solid #f0b429;
+padding: 0.7rem 1.5rem;
+display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+font-size: 0.88rem; color: #7a4f00;
+transition: transform 0.4s ease, opacity 0.4s ease;
+}
+#notice-bar.hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+#notice-bar .notice-text { flex: 1; max-width: 700px; }
+#notice-bar .notice-close { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #7a4f00; opacity: 0.6; padding: 0.2rem 0.4rem; }
+#notice-bar .notice-close:hover { opacity: 1; }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    background: linear-gradient(160deg, #faf6ef 0%, #f0e8d8 60%, #e8dcc8 100%);
-    padding: 8rem 2rem 4rem;
-  }
-  .hero-deco { position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: radial-gradient(ellipse at 80% 30%, rgba(200,217,184,0.45) 0%, transparent 65%), radial-gradient(ellipse at 60% 80%, rgba(196,134,74,0.12) 0%, transparent 50%); pointer-events: none; }
-  .hero-circle { position: absolute; right: 6%; top: 50%; transform: translateY(-50%); width: 340px; height: 340px; border-radius: 50%; overflow: hidden; border: 4px solid rgba(196,134,74,0.3); box-shadow: 0 8px 40px rgba(62,44,28,0.18); animation: float 6s ease-in-out infinite; }
-  .hero-circle img { width: 100%; height: 100%; object-fit: cover; }
-  @keyframes float { 0%,100%{transform:translateY(-50%) translateY(0px);}50%{transform:translateY(-50%) translateY(-12px);} }
-  .hero-circle-inner { font-size: 4.5rem; line-height: 1; margin-bottom: 0.5rem; }
-  .hero-circle-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-light); }
-  .hero-content { max-width: 480px; position: relative; z-index: 1; }
-  .hero-tag { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
-  .hero-tag::before { content:''; display:inline-block; width:28px; height:1px; background:var(--accent); }
-  h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem,5vw,3.8rem); color: var(--dark-brown); line-height: 1.15; margin-bottom: 0.3rem; }
-  h1 em { font-style: italic; color: var(--accent); }
-  .hero-sub { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.2rem; letter-spacing: 0.05em; }
-  .hero-desc { font-size: 0.93rem; color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.9; }
-  .hero-hours { background: rgba(255,255,255,0.7); border: 1px solid rgba(196,134,74,0.2); border-radius: 0.8rem; padding: 1rem 1.2rem; margin-bottom: 2rem; font-size: 0.82rem; color: var(--text-light); }
-  .hero-hours strong { color: var(--dark-brown); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
-  .hero-hours .hour-row { display: flex; justify-content: space-between; padding: 0.2rem 0; }
-  .btn-primary { display: inline-block; padding: 0.85rem 2.2rem; background: var(--accent); color: #fff; border-radius: 2rem; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: background 0.3s, transform 0.2s; }
-  .btn-primary:hover { background: var(--brown); transform: translateY(-2px); }
+/* HERO */
+.hero {
+min-height: 100vh; display: flex; align-items: center; justify-content: center;
+position: relative; overflow: hidden;
+background: linear-gradient(160deg, #faf6ef 0%, #f0e8d8 60%, #e8dcc8 100%);
+padding: 8rem 2rem 4rem;
+}
+.hero-deco { position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: radial-gradient(ellipse at 80% 30%, rgba(200,217,184,0.45) 0%, transparent 65%), radial-gradient(ellipse at 60% 80%, rgba(196,134,74,0.12) 0%, transparent 50%); pointer-events: none; }
+.hero-circle { position: absolute; right: 6%; top: 50%; transform: translateY(-50%); width: 340px; height: 340px; border-radius: 50%; overflow: hidden; border: 4px solid rgba(196,134,74,0.3); box-shadow: 0 8px 40px rgba(62,44,28,0.18); animation: float 6s ease-in-out infinite; }
+.hero-circle img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes float { 0%,100%{transform:translateY(-50%) translateY(0px);}50%{transform:translateY(-50%) translateY(-12px);} }
+.hero-circle-inner { font-size: 4.5rem; line-height: 1; margin-bottom: 0.5rem; }
+.hero-circle-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-light); }
+.hero-content { max-width: 480px; position: relative; z-index: 1; }
+.hero-tag { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
+.hero-tag::before { content:''; display:inline-block; width:28px; height:1px; background:var(--accent); }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem,5vw,3.8rem); color: var(--dark-brown); line-height: 1.15; margin-bottom: 0.3rem; }
+h1 em { font-style: italic; color: var(--accent); }
+.hero-sub { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.2rem; letter-spacing: 0.05em; }
+.hero-desc { font-size: 0.93rem; color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.9; }
+.hero-hours { background: rgba(255,255,255,0.7); border: 1px solid rgba(196,134,74,0.2); border-radius: 0.8rem; padding: 1rem 1.2rem; margin-bottom: 2rem; font-size: 0.82rem; color: var(--text-light); }
+.hero-hours strong { color: var(--dark-brown); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+.hero-hours .hour-row { display: flex; justify-content: space-between; padding: 0.2rem 0; }
+.btn-primary { display: inline-block; padding: 0.85rem 2.2rem; background: var(--accent); color: #fff; border-radius: 2rem; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: background 0.3s, transform 0.2s; }
+.btn-primary:hover { background: var(--brown); transform: translateY(-2px); }
 
-  @media (max-width: 680px) {
-    .hero { flex-direction: column; padding: 7rem 1.5rem 3rem; }
-    .hero-circle { display: none; }
-    .hero-content { max-width: 100%; }
-  }
+@media (max-width: 680px) {
+.hero { flex-direction: column; padding: 7rem 1.5rem 3rem; }
+.hero-circle { display: none; }
+.hero-content { max-width: 100%; }
+}
 
-  section { padding: 3.5rem 2rem; }
-  .section-inner { max-width: 960px; margin: 0 auto; }
-  .section-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
-  .section-tag::before { content:''; display:inline-block; width:20px; height:1px; background:var(--sage); }
-  h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--dark-brown); margin-bottom: 1rem; }
+section { padding: 3.5rem 2rem; }
+.section-inner { max-width: 960px; margin: 0 auto; }
+.section-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
+.section-tag::before { content:''; display:inline-block; width:20px; height:1px; background:var(--sage); }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--dark-brown); margin-bottom: 1rem; }
 
-  /* お知らせ */
-  .news-section { background: var(--warm-beige); }
-  .news-inner { max-width: 760px; margin: 0 auto; }
-  .admin-toggle-wrap { text-align: right; margin-bottom: 1rem; }
-  .admin-toggle { background: none; border: 1px solid rgba(124,92,62,0.25); border-radius: 2rem; padding: 0.35rem 1rem; font-size: 0.78rem; color: var(--text-light); cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s; }
-  .admin-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  .admin-panel { background: #fff; border-radius: 1rem; border: 1px solid rgba(196,134,74,0.2); padding: 1.5rem; margin-bottom: 1.5rem; display: none; }
-  .admin-panel.open { display: block; }
-  .admin-panel h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--dark-brown); margin-bottom: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-group label { font-size: 0.75rem; color: var(--text-light); }
-  .form-group input, .form-group select, .form-group textarea { padding: 0.5rem 0.75rem; border: 1px solid rgba(124,92,62,0.2); border-radius: 0.5rem; font-size: 0.85rem; font-family: 'Lato', sans-serif; color: var(--dark-brown); background: var(--cream); transition: border-color 0.2s; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
-  .form-group textarea { resize: vertical; min-height: 70px; }
-  .btn-add { background: var(--accent); color: #fff; border: none; padding: 0.65rem 1.8rem; border-radius: 2rem; font-size: 0.85rem; font-family: 'Lato', sans-serif; cursor: pointer; transition: background 0.2s; }
-  .btn-add:hover { background: var(--brown); }
-  .news-list { display: flex; flex-direction: column; gap: 0.8rem; }
-  .news-card { background: #fff; border-radius: 0.9rem; border-left: 4px solid var(--accent); padding: 1rem 1.2rem; display: flex; gap: 1rem; align-items: flex-start; box-shadow: 0 2px 8px rgba(62,44,28,0.05); }
-  .news-card.urgent { border-left-color: #e05252; }
-  .news-card.info { border-left-color: var(--sage); }
-  .news-card.closed { border-left-color: #e05252; background: #fff5f5; }
-  .news-badge { font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 2rem; white-space: nowrap; margin-top: 0.15rem; }
-  .badge-urgent { background: #fde8e8; color: #c0392b; }
-  .badge-closed { background: #fde8e8; color: #c0392b; }
-  .badge-info { background: #e8f4e8; color: #2e7d32; }
-  .badge-normal { background: #fef3e2; color: #b45309; }
-  .news-body { flex: 1; }
-  .news-body .news-date { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.2rem; }
-  .news-body .news-title { font-size: 0.92rem; color: var(--dark-brown); font-weight: 500; line-height: 1.5; }
-  .news-body .news-detail { font-size: 0.82rem; color: var(--text-light); margin-top: 0.2rem; line-height: 1.65; }
-  .news-empty { text-align: center; padding: 2.5rem 1rem; background: #fff; border-radius: 0.9rem; color: var(--text-light); font-size: 0.88rem; }
-  .news-delete { background: none; border: none; cursor: pointer; font-size: 0.75rem; color: #ccc; padding: 0; margin-left: auto; transition: color 0.2s; white-space: nowrap; }
-  .news-delete:hover { color: #e05252; }
+/* お知らせ */
+.news-section { background: var(--warm-beige); }
+.news-inner { max-width: 760px; margin: 0 auto; }
+.news-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.news-card { background: #fff; border-radius: 0.9rem; border-left: 4px solid var(--accent); padding: 1rem 1.2rem; display: flex; gap: 1rem; align-items: flex-start; box-shadow: 0 2px 8px rgba(62,44,28,0.05); }
+.news-card.urgent { border-left-color: #e05252; }
+.news-card.info { border-left-color: var(--sage); }
+.news-card.closed { border-left-color: #e05252; background: #fff5f5; }
+.news-badge { font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 2rem; white-space: nowrap; margin-top: 0.15rem; }
+.badge-urgent { background: #fde8e8; color: #c0392b; }
+.badge-closed { background: #fde8e8; color: #c0392b; }
+.badge-info { background: #e8f4e8; color: #2e7d32; }
+.badge-normal { background: #fef3e2; color: #b45309; }
+.news-body { flex: 1; }
+.news-body .news-date { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.2rem; }
+.news-body .news-title { font-size: 0.92rem; color: var(--dark-brown); font-weight: 500; line-height: 1.5; }
+.news-body .news-detail { font-size: 0.82rem; color: var(--text-light); margin-top: 0.2rem; line-height: 1.65; }
+.news-empty { text-align: center; padding: 2.5rem 1rem; background: #fff; border-radius: 0.9rem; color: var(--text-light); font-size: 0.88rem; }
 
-  /* ABOUT */
-  .about { background: var(--cream); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
-  .about-cards { display: flex; gap: 0.9rem; }
-  .about-card { background: var(--warm-beige); border-radius: 1rem; padding: 1.5rem 1rem; text-align: center; flex: 1; }
-  .about-card:last-child { margin-top: 2rem; }
-  .about-card .icon { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
-  .about-card h3 { font-family: 'Playfair Display', serif; font-size: 0.92rem; color: var(--dark-brown); margin-bottom: 0.3rem; }
-  .about-card p { font-size: 0.78rem; color: var(--text-light); line-height: 1.65; }
-  .about-text p { color: var(--text-light); margin-bottom: 0.9rem; font-size: 0.93rem; }
-  @media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+/* ABOUT */
+.about { background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+.about-cards { display: flex; gap: 0.9rem; }
+.about-card { background: var(--warm-beige); border-radius: 1rem; padding: 1.5rem 1rem; text-align: center; flex: 1; }
+.about-card:last-child { margin-top: 2rem; }
+.about-card .icon { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
+.about-card h3 { font-family: 'Playfair Display', serif; font-size: 0.92rem; color: var(--dark-brown); margin-bottom: 0.3rem; }
+.about-card p { font-size: 0.78rem; color: var(--text-light); line-height: 1.65; }
+.about-text p { color: var(--text-light); margin-bottom: 0.9rem; font-size: 0.93rem; }
+@media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
-  /* MENU */
-  .menu-section { background: var(--warm-beige); }
-  .menu-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-  .tab-btn { padding: 0.45rem 1.1rem; border-radius: 2rem; border: 1px solid rgba(124,92,62,0.25); background: transparent; cursor: pointer; font-size: 0.8rem; color: var(--text-light); font-family: 'Lato', sans-serif; transition: all 0.2s; }
-  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .tab-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
-  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 1rem; }
-  .menu-item { background: #fff; border-radius: 0.9rem; overflow: hidden; border: 1px solid rgba(124,92,62,0.1); transition: transform 0.25s, box-shadow 0.25s; }
-  .menu-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(62,44,28,0.1); }
-  .menu-img { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: var(--cream); }
-  .menu-body { padding: 0.9rem 1rem; }
-  .menu-body h3 { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: var(--dark-brown); margin-bottom: 0.15rem; line-height: 1.4; }
-  .menu-body .tag { font-size: 0.68rem; color: var(--sage); margin-bottom: 0.4rem; }
-  .menu-price { font-size: 0.9rem; color: var(--accent); margin-top: 0.4rem; }
+/* MENU */
+.menu-section { background: var(--warm-beige); }
+.menu-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
+.tab-btn { padding: 0.45rem 1.1rem; border-radius: 2rem; border: 1px solid rgba(124,92,62,0.25); background: transparent; cursor: pointer; font-size: 0.8rem; color: var(--text-light); font-family: 'Lato', sans-serif; transition: all 0.2s; }
+.tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tab-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 1rem; }
+.menu-item { background: #fff; border-radius: 0.9rem; overflow: hidden; border: 1px solid rgba(124,92,62,0.1); transition: transform 0.25s, box-shadow 0.25s; }
+.menu-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(62,44,28,0.1); }
+.menu-img { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: var(--cream); }
+.menu-body { padding: 0.9rem 1rem; }
+.menu-body h3 { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: var(--dark-brown); margin-bottom: 0.15rem; line-height: 1.4; }
+.menu-body .tag { font-size: 0.68rem; color: var(--sage); margin-bottom: 0.4rem; }
+.menu-price { font-size: 0.9rem; color: var(--accent); margin-top: 0.4rem; }
 
-  /* INFO */
-  .info-section { background: var(--cream); }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem; }
-  .info-block h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark-brown); margin-bottom: 0.8rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(124,92,62,0.15); }
-  .info-row { display: flex; justify-content: space-between; padding: 0.45rem 0; font-size: 0.85rem; border-bottom: 1px solid rgba(124,92,62,0.06); gap: 0.5rem; }
-  .info-row .label { color: var(--text-light); white-space: nowrap; }
-  .info-row .value { color: var(--dark-brown); text-align: right; }
-  @media (max-width: 680px) { .info-grid { grid-template-columns: 1fr; gap: 2rem; } }
+/* INFO */
+.info-section { background: var(--cream); }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem; }
+.info-block h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark-brown); margin-bottom: 0.8rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(124,92,62,0.15); }
+.info-row { display: flex; justify-content: space-between; padding: 0.45rem 0; font-size: 0.85rem; border-bottom: 1px solid rgba(124,92,62,0.06); gap: 0.5rem; }
+.info-row .label { color: var(--text-light); white-space: nowrap; }
+.info-row .value { color: var(--dark-brown); text-align: right; }
+@media (max-width: 680px) { .info-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
-  /* SNS */
+/* GALLERY */
+.gallery-section { background: var(--cream); padding: 3.5rem 2rem; }
+.gallery-inner { max-width: 960px; margin: 0 auto; }
+.gallery-grid {
+display: grid;
+grid-template-columns: 2fr 1fr 1fr;
+grid-template-rows: 220px 220px;
+gap: 0.8rem;
+margin-top: 1.5rem;
+}
+.gallery-item { border-radius: 0.9rem; overflow: hidden; position: relative; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item.large { grid-row: 1 / 3; }
+.gallery-item .caption {
+position: absolute; bottom: 0; left: 0; right: 0;
+background: linear-gradient(transparent, rgba(62,44,28,0.6));
+color: #fff; font-size: 0.78rem; padding: 1rem 0.8rem 0.6rem;
+opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .caption { opacity: 1; }
+/* グッズカード */
+.goods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.goods-card { background: var(--warm-beige); border-radius: 0.9rem; overflow: hidden; display: flex; align-items: center; gap: 1rem; padding: 0.8rem; }
+.goods-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 0.5rem; background: #fff; flex-shrink: 0; }
+.goods-card-body h3 { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: var(--dark-brown); margin-bottom: 0.2rem; }
+.goods-card-body p { font-size: 0.76rem; color: var(--text-light); line-height: 1.5; }
+@media (max-width: 680px) {
+.gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px 160px; }
+.gallery-item.large { grid-row: 1 / 2; grid-column: 1 / 3; }
+.goods-grid { grid-template-columns: 1fr; }
+}
+.sns-section { background: var(--warm-beige); padding: 3.5rem 2rem; }
+.sns-inner { max-width: 760px; margin: 0 auto; }
+.sns-inner > .section-tag { justify-content: center; }
+.sns-inner > h2 { text-align: center; margin-bottom: 0.4rem; }
+.sns-inner > p { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 2.5rem; }
+.sns-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 560px) { .sns-cards { grid-template-columns: 1fr; } }
+.sns-card { background: #fff; border-radius: 1.4rem; border: 1px solid rgba(124,92,62,0.12); padding: 2rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; transition: transform 0.25s; }
+.sns-card:hover { transform: translateY(-3px); }
+.sns-card .sns-icon { font-size: 2rem; }
+.sns-card .sns-label { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark-brown); }
+.sns-card img { width: 160px; height: 160px; border-radius: 0.8rem; object-fit: cover; }
+.sns-badge { display: inline-block; border-radius: 0.5rem; padding: 0.4rem 1.2rem; font-size: 0.8rem; letter-spacing: 0.05em; color: #fff; }
+.line-badge-color { background: #06C755; }
+.insta-badge-color { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.sns-card .sns-desc { font-size: 0.8rem; color: var(--text-light); text-align: center; line-height: 1.7; }
 
-  /* GALLERY */
-  .gallery-section { background: var(--cream); padding: 3.5rem 2rem; }
-  .gallery-inner { max-width: 960px; margin: 0 auto; }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 220px 220px;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-  }
-  .gallery-item { border-radius: 0.9rem; overflow: hidden; position: relative; }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-item.large { grid-row: 1 / 3; }
-  .gallery-item .caption {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(62,44,28,0.6));
-    color: #fff; font-size: 0.78rem; padding: 1rem 0.8rem 0.6rem;
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .gallery-item:hover .caption { opacity: 1; }
-  /* グッズカード */
-  .goods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-  .goods-card { background: var(--warm-beige); border-radius: 0.9rem; overflow: hidden; display: flex; align-items: center; gap: 1rem; padding: 0.8rem; }
-  .goods-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 0.5rem; background: #fff; flex-shrink: 0; }
-  .goods-card-body h3 { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: var(--dark-brown); margin-bottom: 0.2rem; }
-  .goods-card-body p { font-size: 0.76rem; color: var(--text-light); line-height: 1.5; }
-  @media (max-width: 680px) {
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px 160px; }
-    .gallery-item.large { grid-row: 1 / 2; grid-column: 1 / 3; }
-    .goods-grid { grid-template-columns: 1fr; }
-  }
-  .sns-section { background: var(--warm-beige); padding: 3.5rem 2rem; }
-  .sns-inner { max-width: 760px; margin: 0 auto; }
-  .sns-inner > .section-tag { justify-content: center; }
-  .sns-inner > h2 { text-align: center; margin-bottom: 0.4rem; }
-  .sns-inner > p { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 2.5rem; }
-  .sns-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  @media (max-width: 560px) { .sns-cards { grid-template-columns: 1fr; } }
-  .sns-card { background: #fff; border-radius: 1.4rem; border: 1px solid rgba(124,92,62,0.12); padding: 2rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; transition: transform 0.25s; }
-  .sns-card:hover { transform: translateY(-3px); }
-  .sns-card .sns-icon { font-size: 2rem; }
-  .sns-card .sns-label { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--dark-brown); }
-  .sns-card img { width: 160px; height: 160px; border-radius: 0.8rem; object-fit: cover; }
-  .sns-badge { display: inline-block; border-radius: 0.5rem; padding: 0.4rem 1.2rem; font-size: 0.8rem; letter-spacing: 0.05em; color: #fff; }
-  .line-badge-color { background: #06C755; }
-  .insta-badge-color { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-  .sns-card .sns-desc { font-size: 0.8rem; color: var(--text-light); text-align: center; line-height: 1.7; }
+footer { background: var(--dark-brown); color: rgba(250,246,239,0.6); text-align: center; padding: 2.5rem 2rem; }
+footer .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.4rem; }
+footer p { font-size: 0.8rem; margin-bottom: 0.25rem; }
+footer .copy { margin-top: 1.2rem; font-size: 0.7rem; opacity: 0.45; }
 
-  footer { background: var(--dark-brown); color: rgba(250,246,239,0.6); text-align: center; padding: 2.5rem 2rem; }
-  footer .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.4rem; }
-  footer p { font-size: 0.8rem; margin-bottom: 0.25rem; }
-  footer .copy { margin-top: 1.2rem; font-size: 0.7rem; opacity: 0.45; }
-
-  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">DaisyCafe <span>でーじ</span></div>
-  <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="#news" onclick="document.querySelector('.nav-links').classList.remove('open')">お知らせ</a></li>
-    <li><a href="#about" onclick="document.querySelector('.nav-links').classList.remove('open')">about</a></li>
-    <li><a href="#menu" onclick="document.querySelector('.nav-links').classList.remove('open')">menu</a></li>
-    <li><a href="#info" onclick="document.querySelector('.nav-links').classList.remove('open')">access</a></li>
-    <li><a href="#gallery" onclick="document.querySelector('.nav-links').classList.remove('open')">gallery</a></li>
-    <li><a href="#sns" onclick="document.querySelector('.nav-links').classList.remove('open')">SNS</a></li>
-  </ul>
+<div class="nav-logo">DaisyCafe <span>でーじ</span></div>
+<button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="メニュー">
+<span></span><span></span><span></span>
+</button>
+<ul class="nav-links">
+<li><a href="#news" onclick="document.querySelector('.nav-links').classList.remove('open')">お知らせ</a></li>
+<li><a href="#about" onclick="document.querySelector('.nav-links').classList.remove('open')">about</a></li>
+<li><a href="#menu" onclick="document.querySelector('.nav-links').classList.remove('open')">menu</a></li>
+<li><a href="#info" onclick="document.querySelector('.nav-links').classList.remove('open')">access</a></li>
+<li><a href="#gallery" onclick="document.querySelector('.nav-links').classList.remove('open')">gallery</a></li>
+<li><a href="#sns" onclick="document.querySelector('.nav-links').classList.remove('open')">SNS</a></li>
+</ul>
 </nav>
 
 <div id="notice-bar" class="hidden">
-  <span>📢</span>
-  <span class="notice-text" id="notice-text"></span>
-  <button class="notice-close" onclick="document.getElementById('notice-bar').classList.add('hidden')">✕</button>
+<span>📢</span>
+<span class="notice-text" id="notice-text"></span>
+<button class="notice-close" onclick="document.getElementById('notice-bar').classList.add('hidden')">✕</button>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-content">
-    <div class="hero-tag">沖永良部島 · Cafe</div>
-    <h1>Daisy<br><em>Cafe</em></h1>
-    <p class="hero-sub">でーじ — とびきり美味しい時間を</p>
-    <p class="hero-desc">クレープ、バーガー、島バナナシェイク…<br>沖永良部島の素材を活かした手作りメニューで<br>ほっとひと息つける場所です。</p>
-    <div class="hero-hours">
-      <strong>営業時間</strong>
-      <div class="hour-row"><span>平日</span><span>9:30 – 16:00（L.O. 15:30）</span></div>
-      <div class="hour-row"><span>土日祝</span><span>10:00 – 15:00（L.O. 14:30）</span></div>
-    </div>
-    <a href="#menu" class="btn-primary">メニューを見る</a>
-  </div>
-  <div class="hero-circle">
-    <img src="logo.jpg" alt="DaisyCafe ロゴ">
-  </div>
+<div class="hero-deco"></div>
+<div class="hero-content">
+<div class="hero-tag">沖永良部島 · Cafe</div>
+<h1>Daisy<br><em>Cafe</em></h1>
+<p class="hero-sub">でーじ — とびきり美味しい時間を</p>
+<p class="hero-desc">クレープ、バーガー、島バナナシェイク…<br>沖永良部島の素材を活かした手作りメニューで<br>ほっとひと息つける場所です。</p>
+<div class="hero-hours">
+<strong>営業時間</strong>
+<div class="hour-row"><span>平日</span><span>9:30 – 16:00（L.O. 15:30）</span></div>
+<div class="hour-row"><span>土日祝</span><span>10:00 – 15:00（L.O. 14:30）</span></div>
+</div>
+<a href="#menu" class="btn-primary">メニューを見る</a>
+</div>
+<div class="hero-circle">
+<img src="logo.jpg" alt="DaisyCafe ロゴ">
+</div>
 </section>
 
 <!-- お知らせ -->
 <section class="news-section" id="news">
-  <div class="news-inner">
-    <div class="section-tag">news</div>
-    <h2>お知らせ</h2>
-    <div class="admin-toggle-wrap">
-      <button class="admin-toggle" onclick="toggleAdmin()">✏️ お知らせを編集する</button>
-    </div>
-    <div class="admin-panel" id="adminPanel">
-      <h3>新しいお知らせを追加</h3>
-      <div class="form-row">
-        <div class="form-group"><label>日付</label><input type="date" id="f-date"></div>
-        <div class="form-group"><label>種類</label>
-          <select id="f-type">
-            <option value="closed">🔴 臨時休業</option>
-            <option value="urgent">🟠 重要なお知らせ</option>
-            <option value="info">🟢 営業情報</option>
-            <option value="normal">🟡 その他</option>
-          </select>
-        </div>
-        <div class="form-group full"><label>タイトル</label><input type="text" id="f-title" placeholder="例：〇月〇日は臨時休業いたします"></div>
-        <div class="form-group full"><label>詳細（任意）</label><textarea id="f-detail" placeholder="例：急遽お休みをいただきます。ご迷惑をおかけして申し訳ありません。"></textarea></div>
-      </div>
-      <button class="btn-add" onclick="addNews()">追加する</button>
-    </div>
-    <div class="news-list" id="newsList"></div>
-  </div>
+<div class="news-inner">
+<div class="section-tag">news</div>
+<h2>お知らせ</h2>
+<div class="news-list" id="newsList"></div>
+</div>
 </section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
-  <div class="section-inner">
-    <div class="about-grid fade-in">
-      <div class="about-text">
-        <div class="section-tag">about us</div>
-        <h2>私たちについて</h2>
-        <p>DaisyCafe（でーじ）は、鹿児島県大島郡沖永良部島にある小さなカフェです。</p>
-        <p>「でーじ」は島の言葉で「とても・すごく」という意味。その名の通り、とびきり美味しい時間を届けたいという想いで、一品一品を丁寧に作っています。</p>
-        <p>島バナナシェイクやあんだぎーなど島ならではのメニューから、手作りクレープ・ガレット、ボリューム満点のバーガーまで幅広くご用意しています。</p>
-      </div>
-      <div class="about-cards">
-        <div class="about-card"><span class="icon">🌺</span><h3>島の素材</h3><p>沖永良部島の食材を活かした島ならではのメニュー。</p></div>
-        <div class="about-card"><span class="icon">🥞</span><h3>手作りクレープ</h3><p>甘いものからがっつり食事系まで豊富なラインナップ。</p></div>
-      </div>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="about-grid fade-in">
+<div class="about-text">
+<div class="section-tag">about us</div>
+<h2>私たちについて</h2>
+<p>DaisyCafe（でーじ）は、鹿児島県大島郡沖永良部島にある小さなカフェです。</p>
+<p>「でーじ」は島の言葉で「とても・すごく」という意味。その名の通り、とびきり美味しい時間を届けたいという想いで、一品一品を丁寧に作っています。</p>
+<p>島バナナシェイクやあんだぎーなど島ならではのメニューから、手作りクレープ・ガレット、ボリューム満点のバーガーまで幅広くご用意しています。</p>
+</div>
+<div class="about-cards">
+<div class="about-card"><span class="icon">🌺</span><h3>島の素材</h3><p>沖永良部島の食材を活かした島ならではのメニュー。</p></div>
+<div class="about-card"><span class="icon">🥞</span><h3>手作りクレープ</h3><p>甘いものからがっつり食事系まで豊富なラインナップ。</p></div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- MENU -->
 <section class="menu-section" id="menu">
-  <div class="section-inner">
-    <div class="fade-in">
-      <div class="section-tag">menu</div>
-      <h2>メニュー</h2>
-      <p style="color:var(--text-light);font-size:0.88rem;">カテゴリを選んでご覧ください</p>
-    </div>
-    <div class="menu-tabs fade-in" id="tabs"></div>
-    <div class="menu-grid fade-in" id="menuGrid"></div>
-  </div>
+<div class="section-inner">
+<div class="fade-in">
+<div class="section-tag">menu</div>
+<h2>メニュー</h2>
+<p style="color:var(--text-light);font-size:0.88rem;">カテゴリを選んでご覧ください</p>
+</div>
+<div class="menu-tabs fade-in" id="tabs"></div>
+<div class="menu-grid fade-in" id="menuGrid"></div>
+</div>
 </section>
 
 <!-- ACCESS -->
 <section class="info-section" id="info">
-  <div class="section-inner">
-    <div class="fade-in">
-      <div class="section-tag">access</div>
-      <h2>アクセス・営業情報</h2>
-    </div>
-    <div class="info-grid fade-in">
-      <div class="info-block">
-        <h3>営業時間</h3>
-        <div class="info-row"><span class="label">平日</span><span class="value">9:30 – 16:00</span></div>
-        <div class="info-row"><span class="label">　ラストオーダー</span><span class="value">15:30</span></div>
-        <div class="info-row"><span class="label">土日祝</span><span class="value">10:00 – 15:00</span></div>
-        <div class="info-row"><span class="label">　ラストオーダー</span><span class="value">14:30</span></div>
-      </div>
-      <div class="info-block">
-        <h3>所在地</h3>
-        <div class="info-row"><span class="label">郵便番号</span><span class="value">〒891-9222</span></div>
-        <div class="info-row"><span class="label">住所</span><span class="value">鹿児島県大島郡徳時837-1</span></div>
-      </div>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="fade-in">
+<div class="section-tag">access</div>
+<h2>アクセス・営業情報</h2>
+</div>
+<div class="info-grid fade-in">
+<div class="info-block">
+<h3>営業時間</h3>
+<div class="info-row"><span class="label">平日</span><span class="value">9:30 – 16:00</span></div>
+<div class="info-row"><span class="label"> ラストオーダー</span><span class="value">15:30</span></div>
+<div class="info-row"><span class="label">土日祝</span><span class="value">10:00 – 15:00</span></div>
+<div class="info-row"><span class="label"> ラストオーダー</span><span class="value">14:30</span></div>
+</div>
+<div class="info-block">
+<h3>所在地</h3>
+<div class="info-row"><span class="label">郵便番号</span><span class="value">〒891-9222</span></div>
+<div class="info-row"><span class="label">住所</span><span class="value">鹿児島県大島郡徳時837-1</span></div>
+</div>
+</div>
+</div>
 </section>
-
 
 <!-- GALLERY -->
 <section class="gallery-section" id="gallery">
-  <div class="gallery-inner">
-    <div class="fade-in">
-      <div class="section-tag">gallery</div>
-      <h2>フォトギャラリー</h2>
-    </div>
-    <div class="gallery-grid fade-in">
-      <div class="gallery-item large">
-        <img src="burger.jpg" alt="DAISYバーガー">
-        <div class="caption">DAISYバーガー ポテト付 ¥800</div>
-      </div>
-      <div class="gallery-item">
-        <img src="omurice.jpg" alt="オムライス">
-        <div class="caption">オムライス ¥800〜</div>
-      </div>
-      <div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
-        <img src="logo.jpg" alt="DaisyCafe" style="width:100%;height:100%;object-fit:cover;">
-        <div class="caption">DaisyCafe でーじ</div>
-      </div>
-      <div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
-        <img src="tshirt.jpg" alt="オリジナルTシャツ" style="object-fit:contain;padding:1rem;">
-        <div class="caption">オリジナルTシャツ</div>
-      </div>
-      <div class="gallery-item" style="background:var(--soft-green,#c8d9b8);display:flex;align-items:center;justify-content:center;">
-        <img src="bag.jpg" alt="オリジナルエコバッグ" style="object-fit:contain;padding:1rem;">
-        <div class="caption">オリジナルエコバッグ</div>
-      </div>
-    </div>
+<div class="gallery-inner">
+<div class="fade-in">
+<div class="section-tag">gallery</div>
+<h2>フォトギャラリー</h2>
+</div>
+<div class="gallery-grid fade-in">
+<div class="gallery-item large">
+<img src="burger.jpg" alt="DAISYバーガー">
+<div class="caption">DAISYバーガー ポテト付 ¥800</div>
+</div>
+<div class="gallery-item">
+<img src="omurice.jpg" alt="オムライス">
+<div class="caption">オムライス ¥800〜</div>
+</div>
+<div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
+<img src="logo.jpg" alt="DaisyCafe" style="width:100%;height:100%;object-fit:cover;">
+<div class="caption">DaisyCafe でーじ</div>
+</div>
+<div class="gallery-item" style="background:var(--warm-beige);display:flex;align-items:center;justify-content:center;">
+<img src="tshirt.jpg" alt="オリジナルTシャツ" style="object-fit:contain;padding:1rem;">
+<div class="caption">オリジナルTシャツ</div>
+</div>
+<div class="gallery-item" style="background:var(--soft-green,#c8d9b8);display:flex;align-items:center;justify-content:center;">
+<img src="bag.jpg" alt="オリジナルエコバッグ" style="object-fit:contain;padding:1rem;">
+<div class="caption">オリジナルエコバッグ</div>
+</div>
+</div>
 
-    <div style="margin-top:2rem;" class="fade-in">
-      <div class="section-tag">goods</div>
-      <h2 style="font-size:1.4rem;margin-bottom:0.8rem;">オリジナルグッズ</h2>
-      <div class="goods-grid">
-        <div class="goods-card">
-          <img src="tshirt.jpg" alt="Tシャツ">
-          <div class="goods-card-body">
-            <h3>オリジナルTシャツ</h3>
-            <p>DaisyCafe since2025のロゴ入り。店頭でご確認ください。</p>
-          </div>
-        </div>
-        <div class="goods-card">
-          <img src="bag.jpg" alt="エコバッグ">
-          <div class="goods-card-body">
-            <h3>オリジナルエコバッグ</h3>
-            <p>沖永良部島のヤシの木デザイン。使いやすいサイズ感。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div style="margin-top:2rem;" class="fade-in">
+<div class="section-tag">goods</div>
+<h2 style="font-size:1.4rem;margin-bottom:0.8rem;">オリジナルグッズ</h2>
+<div class="goods-grid">
+<div class="goods-card">
+<img src="tshirt.jpg" alt="Tシャツ">
+<div class="goods-card-body">
+<h3>オリジナルTシャツ</h3>
+<p>DaisyCafe since2025のロゴ入り。店頭でご確認ください。</p>
+</div>
+</div>
+<div class="goods-card">
+<img src="bag.jpg" alt="エコバッグ">
+<div class="goods-card-body">
+<h3>オリジナルエコバッグ</h3>
+<p>沖永良部島のヤシの木デザイン。使いやすいサイズ感。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- SNS -->
 <section class="sns-section" id="sns">
-  <div class="sns-inner fade-in">
-    <div class="section-tag">SNS</div>
-    <h2>SNSでもつながろう</h2>
-    <p>最新情報やメニューの写真はSNSでも発信中です。ぜひフォローしてください🌼</p>
-    <div class="sns-cards">
-      <div class="sns-card">
-        <div class="sns-icon">💬</div>
-        <div class="sns-label">LINE</div>
-        <img src="line_qr.png" alt="LINE QRコード">
-        <span class="sns-badge line-badge-color">友だち追加</span>
-        <div class="sns-desc">お得な情報や臨時休業のお知らせをいち早くお届けします</div>
-      </div>
-      <div class="sns-card">
-        <div class="sns-icon">📸</div>
-        <div class="sns-label">Instagram</div>
-        <img src="instagram_qr.png" alt="Instagram QRコード">
-        <span class="sns-badge insta-badge-color">@daisycafe_shouryudow</span>
-        <div class="sns-desc">メニューの写真や日常をInstagramで発信中。ぜひチェックを！</div>
-      </div>
-    </div>
-  </div>
+<div class="sns-inner fade-in">
+<div class="section-tag">SNS</div>
+<h2>SNSでもつながろう</h2>
+<p>最新情報やメニューの写真はSNSでも発信中です。ぜひフォローしてください🌼</p>
+<div class="sns-cards">
+<div class="sns-card">
+<div class="sns-icon">💬</div>
+<div class="sns-label">LINE</div>
+<img src="line_qr.png" alt="LINE QRコード">
+<span class="sns-badge line-badge-color">友だち追加</span>
+<div class="sns-desc">お得な情報や臨時休業のお知らせをいち早くお届けします</div>
+</div>
+<div class="sns-card">
+<div class="sns-icon">📸</div>
+<div class="sns-label">Instagram</div>
+<img src="instagram_qr.png" alt="Instagram QRコード">
+<span class="sns-badge insta-badge-color">@daisycafe_shouryudow</span>
+<div class="sns-desc">メニューの写真や日常をInstagramで発信中。ぜひチェックを！</div>
+</div>
+</div>
+</div>
 </section>
 
 <footer>
-  <div class="logo">DaisyCafe</div>
-  <p>でーじ — 沖永良部島のほっとするカフェ　since 2025</p>
-  <p>〒891-9222 鹿児島県大島郡徳時837-1</p>
-  <p style="margin-top:0.5rem;font-size:0.78rem;">Instagram: @daisycafe_shouryudow</p>
-  <div class="copy">© 2025 DaisyCafe. All rights reserved.</div>
+<div class="logo">DaisyCafe</div>
+<p>でーじ — 沖永良部島のほっとするカフェ since 2025</p>
+<p>〒891-9222 鹿児島県大島郡徳時837-1</p>
+<p style="margin-top:0.5rem;font-size:0.78rem;">Instagram: @daisycafe_shouryudow</p>
+<div class="copy">© 2025 DaisyCafe. All rights reserved.</div>
 </footer>
 
 <script>
-// ========== お知らせ ==========
-// localStorageからお知らせを読み込み
-let news = [];
-try {
-  const saved = localStorage.getItem('daisycafe_news');
-  if (saved) news = JSON.parse(saved);
-} catch(e) { news = []; }
-
-function saveNews() {
-  try { localStorage.setItem('daisycafe_news', JSON.stringify(news)); } catch(e) {}
-}
+// ========== お知らせ（Googleフォーム連携） ==========
+const NEWS_CSV_URL = "https://docs.google.com/spreadsheets/d/1Xa4BVH1l31CFUlhyfrWv5LHvUo89sHaPXKIjGElDLIU/export?format=csv&gid=2120093217";
 
 const typeConfig = {
-  closed: { label:"臨時休業", badgeClass:"badge-closed", cardClass:"closed" },
-  urgent: { label:"重要なお知らせ", badgeClass:"badge-urgent", cardClass:"urgent" },
-  info:   { label:"営業情報", badgeClass:"badge-info", cardClass:"info" },
-  normal: { label:"お知らせ", badgeClass:"badge-normal", cardClass:"" },
+"臨時休業": { badgeClass:"badge-closed", cardClass:"closed" },
+"重要なお知らせ": { badgeClass:"badge-urgent", cardClass:"urgent" },
+"営業情報": { badgeClass:"badge-info", cardClass:"info" },
+"その他": { badgeClass:"badge-normal", cardClass:"" },
 };
 
+function parseCSV(text) {
+const rows = [];
+let row = [], field = '', inQuotes = false;
+for (let i = 0; i < text.length; i++) {
+const c = text[i], next = text[i+1];
+if (inQuotes) {
+if (c === '"' && next === '"') { field += '"'; i++; }
+else if (c === '"') { inQuotes = false; }
+else { field += c; }
+} else {
+if (c === '"') inQuotes = true;
+else if (c === ',') { row.push(field); field = ''; }
+else if (c === '\r') { /* skip */ }
+else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+else field += c;
+}
+}
+if (field.length || row.length) { row.push(field); rows.push(row); }
+return rows.filter(r => r.some(v => v !== ''));
+}
+
 function formatDate(str) {
-  const d = new Date(str);
-  return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+const d = new Date(str);
+if (isNaN(d)) return str;
+return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 }
 
-function renderNews() {
-  const el = document.getElementById('newsList');
-  const bar = document.getElementById('notice-bar');
-  if (!news.length) {
-    el.innerHTML = `<div class="news-empty">🌼 現在、お知らせはありません</div>`;
-    bar.classList.add('hidden');
-    return;
-  }
-  const sorted = [...news].sort((a,b) => b.date.localeCompare(a.date));
-  el.innerHTML = sorted.map(n => {
-    const t = typeConfig[n.type] || typeConfig.normal;
-    return `<div class="news-card ${t.cardClass}">
-      <span class="news-badge ${t.badgeClass}">${t.label}</span>
-      <div class="news-body">
-        <div class="news-date">${formatDate(n.date)}</div>
-        <div class="news-title">${n.title}</div>
-        ${n.detail ? `<div class="news-detail">${n.detail}</div>` : ''}
-      </div>
-      <button class="news-delete" onclick="deleteNews(${n.id})">✕ 削除</button>
-    </div>`;
-  }).join('');
-  const top = sorted[0];
-  document.getElementById('notice-text').innerHTML = `<strong>${formatDate(top.date)}：${top.title}</strong>${top.detail ? '　' + top.detail : ''}`;
-  bar.classList.remove('hidden');
+function findCol(header, keyword) {
+return header.findIndex(h => h && h.includes(keyword));
 }
 
-function addNews() {
-  const date = document.getElementById('f-date').value;
-  const type = document.getElementById('f-type').value;
-  const title = document.getElementById('f-title').value.trim();
-  const detail = document.getElementById('f-detail').value.trim();
-  if (!date || !title) { alert('日付とタイトルを入力してください'); return; }
-  news.unshift({ id: Date.now(), date, type, title, detail });
-  saveNews();
-  document.getElementById('f-date').value = '';
-  document.getElementById('f-title').value = '';
-  document.getElementById('f-detail').value = '';
-  renderNews();
+async function renderNews() {
+const el = document.getElementById('newsList');
+const bar = document.getElementById('notice-bar');
+try {
+const res = await fetch(NEWS_CSV_URL, { cache: "no-store" });
+if (!res.ok) throw new Error('fetch failed');
+const text = await res.text();
+const rows = parseCSV(text);
+const header = rows.shift() || [];
+const dateIdx = findCol(header, '日付');
+const typeIdx = findCol(header, '種類');
+const titleIdx = findCol(header, 'タイトル');
+const detailIdx = findCol(header, '詳細');
+
+let news = rows.map(r => ({
+date: dateIdx >= 0 ? (r[dateIdx] || '') : '',
+type: typeIdx >= 0 ? (r[typeIdx] || '').trim() : '',
+title: titleIdx >= 0 ? (r[titleIdx] || '') : '',
+detail: detailIdx >= 0 ? (r[detailIdx] || '') : '',
+})).filter(n => n.title);
+
+if (!news.length) {
+el.innerHTML = `<div class="news-empty">🌼 現在、お知らせはありません</div>`;
+bar.classList.add('hidden');
+return;
 }
 
-function deleteNews(id) {
-  if (!confirm('このお知らせを削除しますか？')) return;
-  news = news.filter(n => n.id !== id);
-  saveNews();
-  renderNews();
+news.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+el.innerHTML = news.map(n => {
+const t = typeConfig[n.type] || typeConfig["その他"];
+return `<div class="news-card ${t.cardClass}">
+<span class="news-badge ${t.badgeClass}">${n.type || 'お知らせ'}</span>
+<div class="news-body">
+<div class="news-date">${formatDate(n.date)}</div>
+<div class="news-title">${n.title}</div>
+${n.detail ? `<div class="news-detail">${n.detail}</div>` : ''}
+</div>
+</div>`;
+}).join('');
+
+const top = news[0];
+document.getElementById('notice-text').innerHTML = `<strong>${formatDate(top.date)}：${top.title}</strong>${top.detail ? ' ' + top.detail : ''}`;
+bar.classList.remove('hidden');
+} catch(e) {
+el.innerHTML = `<div class="news-empty">🌼 現在、お知らせはありません</div>`;
+bar.classList.add('hidden');
+}
 }
 
-function toggleAdmin() {
-  document.getElementById('adminPanel').classList.toggle('open');
-}
-
-document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
 renderNews();
 
 // ========== メニュー ==========
 const menuData = [
-  {name:"トーストプレート（コーヒー付）",price:700,cat:"セット"},
-  {name:"クレープ・ガレット（コーヒー付）",price:700,cat:"セット"},
-  {name:"からあげプレート",price:800,cat:"フード"},
-  {name:"オムライス（ケチャップ）",price:800,cat:"フード"},
-  {name:"オムライス（明太クリーム）",price:900,cat:"フード"},
-  {name:"オムライス（デミグラスソース）",price:900,cat:"フード"},
-  {name:"タコライス",price:850,cat:"フード"},
-  {name:"ガパオライス",price:900,cat:"フード"},
-  {name:"しょうが焼きプレート",price:850,cat:"フード"},
-  {name:"ローストビーフ丼",price:1500,cat:"フード"},
-  {name:"チェロスドッグ",price:600,cat:"フード"},
-  {name:"フランクフルト",price:350,cat:"フード"},
-  {name:"フライドチキン",price:600,cat:"フード"},
-  {name:"DAISYバーガー単品",price:700,cat:"バーガー"},
-  {name:"DAISYバーガーポテト付",price:800,cat:"バーガー"},
-  {name:"てりやきバーガー単品",price:700,cat:"バーガー"},
-  {name:"てりやきバーガーポテト付",price:800,cat:"バーガー"},
-  {name:"シュガーバター",price:400,cat:"クレープ"},
-  {name:"チョコクリーム",price:450,cat:"クレープ"},
-  {name:"チョコバナナクリーム",price:500,cat:"クレープ"},
-  {name:"アイスホイップ",price:600,cat:"クレープ"},
-  {name:"ハムサラダ",price:400,cat:"クレープ"},
-  {name:"ツナサラダ",price:400,cat:"クレープ"},
-  {name:"シナモンシュガー",price:450,cat:"クレープ"},
-  {name:"キャラメルバター",price:450,cat:"クレープ"},
-  {name:"さたまめバター",price:450,cat:"クレープ"},
-  {name:"タコスクレープ",price:600,cat:"クレープ"},
-  {name:"クレープ・ガレット",price:700,cat:"クレープ"},
-  {name:"タコスクレープ・ガレット",price:800,cat:"クレープ"},
-  {name:"ローストビーフガレット",price:1200,cat:"クレープ"},
-  {name:"ポテトS",price:200,cat:"サイド"},
-  {name:"ポテトL",price:400,cat:"サイド"},
-  {name:"からあげポテト",price:500,cat:"サイド"},
-  {name:"しゃかしゃかポテト（バター醤油）L",price:500,cat:"サイド"},
-  {name:"オニオンリング&ポテト",price:600,cat:"サイド"},
-  {name:"コーヒー",price:350,cat:"ドリンク"},
-  {name:"カフェオレ",price:400,cat:"ドリンク"},
-  {name:"カフェラテ",price:450,cat:"ドリンク"},
-  {name:"キャラメルラテ",price:450,cat:"ドリンク"},
-  {name:"ソイラテ",price:450,cat:"ドリンク"},
-  {name:"アーモンドミルクラテ",price:450,cat:"ドリンク"},
-  {name:"チャイラテ",price:450,cat:"ドリンク"},
-  {name:"黒糖ラテ",price:450,cat:"ドリンク"},
-  {name:"黒糖ラテ（生クリーム）",price:600,cat:"ドリンク"},
-  {name:"アイスティー",price:300,cat:"ドリンク"},
-  {name:"島バナナシェイク",price:400,cat:"ドリンク"},
-  {name:"バタフライピー",price:400,cat:"ドリンク"},
-  {name:"タピオカミルクティー",price:500,cat:"ドリンク"},
-  {name:"タピオカまっちゃ",price:500,cat:"ドリンク"},
-  {name:"マンゴー",price:300,cat:"ドリンク"},
-  {name:"コーラ",price:300,cat:"ドリンク"},
-  {name:"ウーロン茶",price:300,cat:"ドリンク"},
-  {name:"ノンアルビール",price:300,cat:"ドリンク"},
-  {name:"アップル100",price:300,cat:"ドリンク"},
-  {name:"あんだぎー6個",price:350,cat:"島のおやつ"},
-  {name:"あんだぎー10個",price:500,cat:"島のおやつ"},
-  {name:"やきむち",price:200,cat:"島のおやつ"},
-  {name:"さたまめ",price:300,cat:"島のおやつ"},
-  {name:"ハンバーガー（単品）",price:350,cat:"キッズ"},
-  {name:"ハンバーガーセット",price:500,cat:"キッズ"},
+{name:"トーストプレート（コーヒー付）",price:700,cat:"セット"},
+{name:"クレープ・ガレット（コーヒー付）",price:700,cat:"セット"},
+{name:"からあげプレート",price:800,cat:"フード"},
+{name:"オムライス（ケチャップ）",price:800,cat:"フード"},
+{name:"オムライス（明太クリーム）",price:900,cat:"フード"},
+{name:"オムライス（デミグラスソース）",price:900,cat:"フード"},
+{name:"タコライス",price:850,cat:"フード"},
+{name:"ガパオライス",price:900,cat:"フード"},
+{name:"しょうが焼きプレート",price:850,cat:"フード"},
+{name:"ローストビーフ丼",price:1500,cat:"フード"},
+{name:"チェロスドッグ",price:600,cat:"フード"},
+{name:"フランクフルト",price:350,cat:"フード"},
+{name:"フライドチキン",price:600,cat:"フード"},
+{name:"DAISYバーガー単品",price:700,cat:"バーガー"},
+{name:"DAISYバーガーポテト付",price:800,cat:"バーガー"},
+{name:"てりやきバーガー単品",price:700,cat:"バーガー"},
+{name:"てりやきバーガーポテト付",price:800,cat:"バーガー"},
+{name:"シュガーバター",price:400,cat:"クレープ"},
+{name:"チョコクリーム",price:450,cat:"クレープ"},
+{name:"チョコバナナクリーム",price:500,cat:"クレープ"},
+{name:"アイスホイップ",price:600,cat:"クレープ"},
+{name:"ハムサラダ",price:400,cat:"クレープ"},
+{name:"ツナサラダ",price:400,cat:"クレープ"},
+{name:"シナモンシュガー",price:450,cat:"クレープ"},
+{name:"キャラメルバター",price:450,cat:"クレープ"},
+{name:"さたまめバター",price:450,cat:"クレープ"},
+{name:"タコスクレープ",price:600,cat:"クレープ"},
+{name:"クレープ・ガレット",price:700,cat:"クレープ"},
+{name:"タコスクレープ・ガレット",price:800,cat:"クレープ"},
+{name:"ローストビーフガレット",price:1200,cat:"クレープ"},
+{name:"ポテトS",price:200,cat:"サイド"},
+{name:"ポテトL",price:400,cat:"サイド"},
+{name:"からあげポテト",price:500,cat:"サイド"},
+{name:"しゃかしゃかポテト（バター醤油）L",price:500,cat:"サイド"},
+{name:"オニオンリン&ポテト",price:600,cat:"サイド"},
+{name:"コーヒー",price:350,cat:"ドリンク"},
+{name:"カフェオレ",price:400,cat:"ドリンク"},
+{name:"カフェラテ",price:450,cat:"ドリンク"},
+{name:"キャラメルラテ",price:450,cat:"ドリンク"},
+{name:"ソイラテ",price:450,cat:"ドリンク"},
+{name:"アーモンドミルクラテ",price:450,cat:"ドリンク"},
+{name:"チャイラテ",price:450,cat:"ドリンク"},
+{name:"黒糖ラテ",price:450,cat:"ドリンク"},
+{name:"黒糖ラテ（生クリーム）",price:600,cat:"ドリンク"},
+{name:"アイスティー",price:300,cat:"ドリンク"},
+{name:"島バナナシェイク",price:400,cat:"ドリンク"},
+{name:"バタフライピー",price:400,cat:"ドリンク"},
+{name:"タピオカミルクティー",price:500,cat:"ドリンク"},
+{name:"タピオカまっちゃ",price:500,cat:"ドリンク"},
+{name:"マンゴー",price:300,cat:"ドリンク"},
+{name:"コーラ",price:300,cat:"ドリンク"},
+{name:"ウーロン茶",price:300,cat:"ドリンク"},
+{name:"ノンアルビール",price:300,cat:"ドリンク"},
+{name:"アップル100",price:300,cat:"ドリンク"},
+{name:"あんだぎー6個",price:350,cat:"島のおやつ"},
+{name:"あんだぎー10個",price:500,cat:"島のおやつ"},
+{name:"やきむち",price:200,cat:"島のおやつ"},
+{name:"さたまめ",price:300,cat:"島のおやつ"},
+{name:"ハンバーガー（単品）",price:350,cat:"キッズ"},
+{name:"ハンバーガーセット",price:500,cat:"キッズ"},
 ];
 
 const catIcons = {"セット":"🍽️","フード":"🍳","バーガー":"🍔","クレープ":"🥞","サイド":"🍟","ドリンク":"☕","島のおやつ":"🌺","キッズ":"🧒"};
@@ -586,23 +561,23 @@ const cats = ["すべて", ...[...new Set(menuData.map(m => m.cat))]];
 let current = "すべて";
 
 function renderTabs() {
-  document.getElementById('tabs').innerHTML = cats.map(c =>
-    `<button class="tab-btn${c === current ? ' active' : ''}" onclick="setTab('${c}')">${c}</button>`
-  ).join('');
+document.getElementById('tabs').innerHTML = cats.map(c =>
+`<button class="tab-btn${c === current ? ' active' : ''}" onclick="setTab('${c}')">${c}</button>`
+).join('');
 }
 
 function renderGrid() {
-  const items = current === "すべて" ? menuData : menuData.filter(m => m.cat === current);
-  document.getElementById('menuGrid').innerHTML = items.map(m =>
-    `<div class="menu-item">
-      <div class="menu-img">${catIcons[m.cat] || '🍴'}</div>
-      <div class="menu-body">
-        <div class="tag">${m.cat}</div>
-        <h3>${m.name}</h3>
-        <div class="menu-price">¥${m.price.toLocaleString()}</div>
-      </div>
-    </div>`
-  ).join('');
+const items = current === "すべて" ? menuData : menuData.filter(m => m.cat === current);
+document.getElementById('menuGrid').innerHTML = items.map(m =>
+`<div class="menu-item">
+<div class="menu-img">${catIcons[m.cat] || '🍴'}</div>
+<div class="menu-body">
+<div class="tag">${m.cat}</div>
+<h3>${m.name}</h3>
+<div class="menu-price">¥${m.price.toLocaleString()}</div>
+</div>
+</div>`
+).join('');
 }
 
 function setTab(cat) { current = cat; renderTabs(); renderGrid(); }
@@ -611,7 +586,7 @@ renderGrid();
 
 // フェードイン
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
